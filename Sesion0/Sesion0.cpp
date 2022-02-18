@@ -19,7 +19,7 @@ int main()
 {
  interface_t iface;
  pcap_if_t *avail_ifaces=NULL;
- 
+ printf("\n holaaajochemiiiii");
  printf("\n----------------------------\n");
  printf("------ SESION 1 - FRC ------\n");
  printf("----------------------------\n");

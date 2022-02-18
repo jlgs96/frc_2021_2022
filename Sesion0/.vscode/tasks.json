@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: g++ build active file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${fileDirname}/*.cpp",
+                "${fileDirname}/linkLayer.a",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",                
+                "-lpcap",
+                "-fpermissive",
+                "-pthread"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "version": "2.0.0"
+}

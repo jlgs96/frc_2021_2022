@@ -19,17 +19,22 @@ int main()
 {
  interface_t iface;
  pcap_if_t *avail_ifaces=NULL;
- 
+
  
  printf("\n----------------------------\n");
  printf("------ SESION 1 - FRC ------\n");
  printf("----------------------------\n");
     
  avail_ifaces=GetAvailAdapters(); 
+
 int index = 0;
 
 int iseleccionada;
 printf("Interfaces disponibles: \n");
+
+
+//BUCLE PARA MOSTRAR LAS INTERFACES
+
 while (avail_ifaces != NULL)
 {
   
@@ -42,27 +47,29 @@ while (avail_ifaces != NULL)
 
 }
 
+//PEDIMOS INTERFAZ (MODULARIZAR)
 printf("Seleccione interfaz : ");
-
 cin >> iseleccionada;
 
 
+//BUCLE RECORRE Y ELIGE LA INTERFAZ DESEADA
+index = 0;
 while (avail_ifaces != NULL)
 {
+   
     if (iseleccionada == index)
     {
         printf("Interfaz elegida: ");
         printf(avail_ifaces->name);
         setDeviceName(&iface, avail_ifaces->name);
         GetMACAdapter(&iface);
-        printf("La dirección MAC es: ");
+        printf("\nLa dirección MAC es: \n");
         PrintMACAdapter(&iface);
     }else
         avail_ifaces = avail_ifaces->next;
         index++;
     
 }
-
 
 /*printf("Interfaz elegida: ");
 printf(iface.deviceName);

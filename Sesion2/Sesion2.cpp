@@ -3,10 +3,20 @@
 // ---------------------------- CURSO 2021/22 --------------------------------
 // ----------------------------- SESION2.CPP ---------------------------------
 //============================================================================
+//AUTORES: Jose Miguel Bermejo Gonzalez y Jose Luis Garcia Salas
+//GRUPO 10: Viernes 12:00 - 13:30
+
 #include <stdio.h>
 #include <iostream>
 #include "linkLayer.h"
+/*
+###### BUCLE PRINCIPAL ######
 
+Hacemos comprobación kbhit y hacemos getch y si es !esc no entramos.
+Mientras no sea !esc
+  si kbhit == 0: recibo
+  sino: envío con getch() y envias.
+*/
 
 using namespace std;
 
@@ -26,7 +36,7 @@ int main()
   int Puerto=OpenAdapter(&iface);
 
   //Enviamos un carácter
-  EnviarCaracter(iface,car,mac_src,mac_dst,type);
+ // EnviarCaracter(iface,car,mac_src,mac_dst,type);
 
   //Cerramos el puerto:
   CloseAdapter(&iface);

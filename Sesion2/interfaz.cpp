@@ -42,4 +42,18 @@ void seleccionIntefaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz)
     }
 }
 
-void mostrarInterfaz()
+void mostrarInterfaz(interface_t interfaz){
+    printf("\nLa dirección MAC es: \n");
+    PrintMACAdapter(&interfaz)
+}
+
+void EnviarCaracter (interface, datos, unsigned char *mac_origen, unsigned char *mac_destino, tipo)
+  {
+    //ReservarMemoriaDatos;
+    //AlmacenarDatos;
+    //ConstruirTrama;
+    BuildFrame(unsigned char *srcMAC, unsigned char *dstMAC, unsigned char* protocol, unsigned char *payload);
+    //EnviarTrama;
+    SendFrame(interface_t *iface, unsigned char *p, int payloadSize)
+    //LiberarMemoriaDatos;
+  }

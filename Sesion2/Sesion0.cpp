@@ -11,76 +11,41 @@
 #include <stdio.h>
 #include <iostream>
 #include "linkLayer.h"
-
+#include "interfaz.h"
 
 
 
 using namespace std; 
 
 
-int main()
-{
- interface_t iface;
- pcap_if_t *avail_ifaces=NULL;
+int main(){
+    interface_t iface;
+    pcap_if_t *avail_ifaces=NULL;
+    int iseleccionada;
+    avail_ifaces=GetAvailAdapters(); 
 
- 
- printf("\n----------------------------\n");
- printf("------ SESION 1 - FRC ------\n");
- printf("----------------------------\n");
-    
- avail_ifaces=GetAvailAdapters(); 
-
-int index = 0;
-
-int iseleccionada;
-printf("Interfaces disponibles: \n");
-
-
-//BUCLE PARA MOSTRAR LAS INTERFACES
-
-while (avail_ifaces != NULL)
-{
-  
-    cout<< "["<< index << "] ";
-    printf(avail_ifaces->name);
-    printf("\n" );
-    index++;
-    avail_ifaces = avail_ifaces->next;
+    char car = 'A';
+    unsigned char mac_src[6]={0x00, 0x00, 0x00, 0x00,0x00, 0x00};
+    unsigned char mac_dst[6]={0x00, 0x01, 0x02, 0x03,0x04, 0x05};
+    char type[2]={0x30,0x00};
     
 
-}
+    //BUCLE PARA MOSTRAR LAS INTERFACES
+    printf("Interfaces disponibles: \n");
+    mostrarInterfacesDisponibles(avail_ifaces);
 
-//PEDIMOS INTERFAZ (MODULARIZAR)
-printf("Seleccione interfaz : ");
-cin >> iseleccionada;
+    //PEDIMOS INTERFAZ (MODULARIZAR)
+    iseleccionada = pedirInterfaz();
 
 
-//BUCLE RECORRE Y ELIGE LA INTERFAZ DESEADA
-index = 0;
-while (avail_ifaces != NULL)
-{
-   
-    if (iseleccionada == index)
-    {
-        printf("Interfaz elegida: ");
-        printf(avail_ifaces->name);
-        setDeviceName(&iface, avail_ifaces->name);
-        GetMACAdapter(&iface);
-        printf("\nLa dirección MAC es: \n");
-        PrintMACAdapter(&iface);
-    }else
-        avail_ifaces = avail_ifaces->next;
-        index++;
-    
-}
+    //BUCLE RECORRE Y ELIGE LA INTERFAZ DESEADA
+    seleccionInterfaz(avail_ifaces, iface);
 
-/*printf("Interfaz elegida: ");
-printf(iface.deviceName);
-cout<<iface.deviceName<<endl;
-GetMACAdapter(&iface);
-printf("La MAC es: ");
-cout << std::hex << (int) iface.MACaddr << endl;
- */
+    //ENVIAR CARACTER
+    EnviarCaracter(iface,car,mac_src,mac_dst,type);
 
- return 0;
+    //CERRAR PUERTO
+    CloseAdapter(&iface);
+
+    return 0;
 }

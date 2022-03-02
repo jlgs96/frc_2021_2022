@@ -36,8 +36,7 @@ int main()
   int Puerto=OpenAdapter(&iface);
 
   //Enviamos un carácter
- // EnviarCaracter(iface,car,mac_src,mac_dst,type);
-
+  EnviarCaracter(iface,car,mac_src,mac_dst,type);
   //Cerramos el puerto:
   CloseAdapter(&iface);
 

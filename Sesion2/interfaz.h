@@ -37,4 +37,4 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
     MÉTODO QUE RECIBE CARACTERES
 */
 
-//char RecibirCaracter (interface_t interfaz);
+char RecibirCaracter (interface_t interfaz);

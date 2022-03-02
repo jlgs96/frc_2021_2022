@@ -54,22 +54,33 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
     *caracter = datos;
     *protocolo = tipo;
     //ConstruirTrama;
-    BuildFrame(&mac_origen, &mac_destino, protocolo, unsigned char *payload);
+    BuildFrame(mac_origen, mac_destino, protocolo, unsigned char *payload);
     //EnviarTrama;
-    SendFrame(&interfaz, caracter, int payloadSize)
+    SendFrame(interfaz, caracter, int payloadSize);
     //LiberarMemoriaDatos;
     delete caracter;
     delete protocolo;
   }
 
-//char RecibirCaracter (interface_t interfaz){
+char RecibirCaracter (interface_t interfaz){
     //Trama=RecibirTrama;
+    apacket_t trama = ReceiveFrame(&interfaz);
     //QuedarseCampoCompletoDatosTrama;
+    unsigned char *datos = new unsigned char;
+    *datos = trama.packet;
     //Acordaos, el campo datos contiene la mac destino, mac origen, tipo y los
+
     //datos propiamente dichos (caracteres) en este orden.
+
     //Si (hay algo en el campo datos)
+    if(){
     //QuedarseDatosRecibidos; //Quedarse con los caracteres recibidos.
+    
     //DevolverDato;
+        return 
     //Sino
+    }else {
     //DevolverValor0;
+        return 0;
+    }
 }

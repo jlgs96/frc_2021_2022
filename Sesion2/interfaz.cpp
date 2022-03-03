@@ -24,16 +24,17 @@ int pedirInterfaz()
 void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz)
 {
     int index = 0;
+    int ielegida = pedirInterfaz();
     while (interfaces_disponibles != NULL)
     {
-
-        if (pedirInterfaz() == index)
+        if (ielegida == index)
         {
             printf("Interfaz elegida: ");
             printf(interfaces_disponibles->name);
             setDeviceName(&interfaz, interfaces_disponibles->name);
             GetMACAdapter(&interfaz);
             mostrarInterfaz(interfaz);
+            break;
         }else
             interfaces_disponibles = interfaces_disponibles->next;
             index++;
@@ -43,25 +44,28 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz)
 
 void mostrarInterfaz(interface_t interfaz){
     printf("\nLa dirección MAC es: \n");
-    PrintMACAdapter(&interfaz)
+    PrintMACAdapter(&interfaz);
 }
 
-void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_origen, unsigned char *mac_destino,unsigned char tipo){
+void EnviarCaracter (interface_t &interfaz, unsigned char datos, unsigned char *mac_destino, char *tipo){
     //ReservarMemoriaDatos;
     unsigned char *caracter = new unsigned char;
     unsigned char *protocolo = new unsigned char;
+    unsigned char *trama = new unsigned char;
     //AlmacenarDatos;
     *caracter = datos;
-    *protocolo = tipo;
+    *protocolo = *tipo;
     //ConstruirTrama;
-    BuildFrame(mac_origen, mac_destino, protocolo, unsigned char *payload);
+    trama = BuildFrame(interfaz.MACaddr, mac_destino, protocolo, caracter); //devuelve un char, guardar
     //EnviarTrama;
-    SendFrame(interfaz, caracter, int payloadSize);
+    SendFrame(&interfaz, trama, sizeof(char)); // envia la trama creada antes
     //LiberarMemoriaDatos;
     delete caracter;
     delete protocolo;
+    delete trama;
   }
 
+/*
 char RecibirCaracter (interface_t interfaz){
     //Trama=RecibirTrama;
     apacket_t trama = ReceiveFrame(&interfaz);
@@ -75,7 +79,7 @@ char RecibirCaracter (interface_t interfaz){
     //Si (hay algo en el campo datos)
     if(){
     //QuedarseDatosRecibidos; //Quedarse con los caracteres recibidos.
-    
+
     //DevolverDato;
         return 
     //Sino
@@ -83,4 +87,6 @@ char RecibirCaracter (interface_t interfaz){
     //DevolverValor0;
         return 0;
     }
+    
 }
+*/

@@ -21,7 +21,7 @@ int pedirInterfaz()
     return interfaz;
 }
 
-void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz)
+void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz)
 {
     int index = 0;
     int ielegida = pedirInterfaz();
@@ -31,8 +31,8 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz)
         {
             printf("Interfaz elegida: ");
             printf(interfaces_disponibles->name);
-            setDeviceName(&interfaz, interfaces_disponibles->name);
-            GetMACAdapter(&interfaz);
+            setDeviceName(interfaz, interfaces_disponibles->name);
+            GetMACAdapter(interfaz);
             mostrarInterfaz(interfaz);
             break;
         }else
@@ -42,12 +42,12 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz)
     }
 }
 
-void mostrarInterfaz(interface_t interfaz){
+void mostrarInterfaz(interface_t *interfaz){
     printf("\nLa dirección MAC es: \n");
-    PrintMACAdapter(&interfaz);
+    PrintMACAdapter(interfaz);
 }
 
-void EnviarCaracter (interface_t &interfaz, unsigned char datos, unsigned char *mac_destino, char *tipo){
+void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino, char *tipo){
     //ReservarMemoriaDatos;
     unsigned char *caracter = new unsigned char;
     unsigned char *protocolo = new unsigned char;
@@ -56,19 +56,19 @@ void EnviarCaracter (interface_t &interfaz, unsigned char datos, unsigned char *
     *caracter = datos;
     *protocolo = *tipo;
     //ConstruirTrama;
-    trama = BuildFrame(interfaz.MACaddr, mac_destino, protocolo, caracter); //devuelve un char, guardar
+    trama = BuildFrame(interfaz->MACaddr, mac_destino, protocolo, caracter); //devuelve un char, guardar
     //EnviarTrama;
-    SendFrame(&interfaz, trama, sizeof(char)); // envia la trama creada antes
+    SendFrame(interfaz, trama, sizeof(char)); // envia la trama creada antes
     //LiberarMemoriaDatos;
     delete caracter;
     delete protocolo;
     delete trama;
   }
 
-char RecibirCaracter (interface_t &interfaz){
+char RecibirCaracter (interface_t *interfaz){
     char caracter;
     //Trama=RecibirTrama;
-    apacket_t trama = ReceiveFrame(&interfaz);
+    apacket_t trama = ReceiveFrame(interfaz);
     //QuedarseCampoCompletoDatosTrama;
     cout << "aqui1" << endl;
     cout << trama.packet << endl;

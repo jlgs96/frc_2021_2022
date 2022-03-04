@@ -19,22 +19,22 @@ int pedirInterfaz();
 /*
     METODO QUE RECORRE LAS INTERFACES DISPONIBLES Y SELECCIONA UNA EN CONCRETO
 */
-void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t &interfaz);
+void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz);
 
 /*
     METODO QUE MUESTRA POR PANTALLA LA DIRECCION MAC DE LA INTERFAZ ELEGIDA
 */
 
-void mostrarInterfaz(interface_t interfaz);
+void mostrarInterfaz(interface_t *interfaz);
 
 /*
     MÉTODO QUE ENVÍA CARACTERES
 */
 
-void EnviarCaracter (interface_t &interfaz, unsigned char datos, unsigned char *mac_destino,char *tipo);
+void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino,char *tipo);
 
 /*
     MÉTODO QUE RECIBE CARACTERES
 */
 
-char RecibirCaracter (interface_t &interfaz);
+char RecibirCaracter (interface_t *interfaz);

@@ -19,7 +19,7 @@ using namespace std;
 
 
 int main(){
-    interface_t iface;
+    interface_t *iface = new interface_t;
     pcap_if_t *avail_ifaces=NULL;
     avail_ifaces=GetAvailAdapters(); 
 
@@ -33,13 +33,13 @@ int main(){
     mostrarInterfacesDisponibles(avail_ifaces);
 
     //BUCLE RECORRE Y ELIGE LA INTERFAZ DESEADA
-    seleccionInterfaz(avail_ifaces, &iface);
+    seleccionInterfaz(avail_ifaces, iface);
 
     //ABRIR PUERTO
-    int Puerto = OpenAdapter(&iface);
+    int Puerto = OpenAdapter(iface);
 
     //ENVIAR CARACTER
-    EnviarCaracter(&iface,car,mac_dst,type);
+    EnviarCaracter(iface,car,mac_dst,type);
     /*
     char recibido = 'B';
     cout << recibido << endl;
@@ -47,7 +47,9 @@ int main(){
     cout << recibido << endl;
     */
     //CERRAR PUERTO
-    CloseAdapter(&iface);
+    CloseAdapter(iface);
+
+    delete iface;
 
     return 0;
 }

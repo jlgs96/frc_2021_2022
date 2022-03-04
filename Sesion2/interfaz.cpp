@@ -65,28 +65,26 @@ void EnviarCaracter (interface_t &interfaz, unsigned char datos, unsigned char *
     delete trama;
   }
 
-/*
-char RecibirCaracter (interface_t interfaz){
+char RecibirCaracter (interface_t &interfaz){
+    char caracter;
     //Trama=RecibirTrama;
     apacket_t trama = ReceiveFrame(&interfaz);
     //QuedarseCampoCompletoDatosTrama;
-    unsigned char *datos = new unsigned char;
-    *datos = trama.packet;
+    cout << "aqui1" << endl;
+    cout << trama.packet << endl;
+    cout << "aqui2" << endl;
     //Acordaos, el campo datos contiene la mac destino, mac origen, tipo y los
-
     //datos propiamente dichos (caracteres) en este orden.
 
     //Si (hay algo en el campo datos)
-    if(){
+    if(trama.packet != NULL){
     //QuedarseDatosRecibidos; //Quedarse con los caracteres recibidos.
-
+    caracter = char(trama.packet);
     //DevolverDato;
-        return 
+        return caracter;
     //Sino
     }else {
     //DevolverValor0;
         return 0;
     }
-    
 }
-*/

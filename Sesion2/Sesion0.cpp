@@ -40,7 +40,12 @@ int main(){
 
     //ENVIAR CARACTER
     EnviarCaracter(iface,car,mac_dst,type);
-
+    /*
+    char recibido = 'B';
+    cout << recibido << endl;
+    recibido = RecibirCaracter(iface);
+    cout << recibido << endl;
+    */
     //CERRAR PUERTO
     CloseAdapter(&iface);
 

@@ -32,9 +32,9 @@ void mostrarInterfaz(interface_t interfaz);
 */
 
 void EnviarCaracter (interface_t &interfaz, unsigned char datos, unsigned char *mac_destino,char *tipo);
+
 /*
     MÉTODO QUE RECIBE CARACTERES
 */
 
-
-//char RecibirCaracter (interface_t interfaz);
+char RecibirCaracter (interface_t &interfaz);

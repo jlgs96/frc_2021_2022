@@ -33,7 +33,9 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz)
             printf(interfaces_disponibles->name);
             setDeviceName(interfaz, interfaces_disponibles->name);
             GetMACAdapter(interfaz);
+            printf("\nLa interfaz es...\n");
             mostrarInterfaz(interfaz);
+
             break;
         }else
             interfaces_disponibles = interfaces_disponibles->next;
@@ -43,7 +45,7 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz)
 }
 
 void mostrarInterfaz(interface_t *interfaz){
-    printf("\nLa dirección MAC es: \n");
+   // printf("\nLa dirección MAC es: \n");
     PrintMACAdapter(interfaz);
 }
 
@@ -55,6 +57,7 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
     //AlmacenarDatos;
     *caracter = datos;
     *protocolo = *tipo;
+   // mostrarInterfaz(interfaz);
     //ConstruirTrama;
     trama = BuildFrame(interfaz->MACaddr, mac_destino, protocolo, caracter); //devuelve un char, guardar
     //EnviarTrama;
@@ -66,25 +69,21 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
   }
 
 char RecibirCaracter (interface_t *interfaz){
-    char caracter;
+    const unsigned char* caracter;
+    char recibido;
     //Trama=RecibirTrama;
     apacket_t trama = ReceiveFrame(interfaz);
-    //QuedarseCampoCompletoDatosTrama;
-    cout << "aqui1" << endl;
-    cout << trama.packet << endl;
-    cout << "aqui2" << endl;
-    //Acordaos, el campo datos contiene la mac destino, mac origen, tipo y los
-    //datos propiamente dichos (caracteres) en este orden.
-
+    caracter = trama.packet;
     //Si (hay algo en el campo datos)
-    if(trama.packet != NULL){
-    //QuedarseDatosRecibidos; //Quedarse con los caracteres recibidos.
-    caracter = char(trama.packet);
-    //DevolverDato;
-        return caracter;
-    //Sino
-    }else {
-    //DevolverValor0;
+    
+    if(caracter == NULL)
+    {
+        //printf("Error, No recibe carácter");
         return 0;
+    }else
+    {
+        recibido = caracter[14];
+        
+        return recibido;
     }
 }

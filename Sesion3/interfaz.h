@@ -5,31 +5,47 @@
 
 using namespace std; 
 
-/*
-    METODO QUE RECORRE LA LISTA Y MUESTRA LAS INTERFACES DE RED DISPONIBLES
-*/
+/**
+ * @brief Muestra las interfaces de la lista que hay disponibles para conectarnos
+ * 
+ * @param interfaces_disponibles 
+ */
 void mostrarInterfacesDisponibles(pcap_if_t *interfaces_disponibles);
 
-/*
-    METODO QUE NOS PIDE SELCCIONAR INTERFAZ
-*/
+/**
+ * @brief Seleccionamos la interfaz a utilizar
+ * 
+ * @return int 
+ */
 int pedirInterfaz();
 
- 
-/*
-    METODO QUE RECORRE LAS INTERFACES DISPONIBLES Y SELECCIONA UNA EN CONCRETO
-*/
+/**
+ * @brief Recorre las interfaces disponibles y selecciona una en concreto
+ * 
+ * @param interfaces_disponibles 
+ * @param interfaz 
+ */
 void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz);
 
-/*
-    METODO QUE MUESTRA POR PANTALLA LA DIRECCION MAC DE LA INTERFAZ ELEGIDA
-*/
-
+/**
+ * @brief Muestra por pantalla la dirección de la MAC de la interfaz elegida
+ * 
+ * @param interfaz 
+ */
 void mostrarInterfaz(interface_t *interfaz);
 
 
-/*
-    METODO PARA ELEGIR EL GRUPO AL QUE CONECTARNOS
-*/
-
+/**
+ * @brief Devuelve el grupo al que vamos a conectarnos, en char type[0]
+ * 
+ * @return char 
+ */
 char elegirGrupo();
+
+
+/**
+ * @brief Selecionamos le rol que tomara nuestra estación
+ * 
+ * @return int 
+ */
+int seleccionarRol();

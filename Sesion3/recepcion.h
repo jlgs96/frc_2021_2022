@@ -3,8 +3,10 @@
 #include "linkLayer.h"
 using namespace std;
 
-/*
-    MÉTODO QUE RECIBE CARACTERES
-*/
-
+/**
+ * @brief Recibe carácteres individuales del emisor
+ * 
+ * @param interfaz 
+ * @return char 
+ */
 char RecibirCaracter (interface_t *interfaz);

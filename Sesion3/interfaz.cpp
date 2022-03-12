@@ -49,3 +49,24 @@ void mostrarInterfaz(interface_t *interfaz){
     PrintMACAdapter(interfaz);
 }
 
+char elegirGrupo(){
+    int codGrupo = 48;
+    char grupo;
+    int nGrupo = 0;
+    while( 0 >= nGrupo || nGrupo > 10){
+        printf("Introduzca el número de grupo: ");
+        cin >> nGrupo;
+    }
+    grupo = codGrupo + nGrupo;
+    return grupo;
+}
+
+int seleccionarRol(){
+    int rol = 0;
+    while (rol < 1 || rol > 2)
+    {
+        printf("Selecciona el modo de la estación: ");
+        cin >> rol;
+    }
+    return rol;
+}

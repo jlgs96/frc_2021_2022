@@ -28,3 +28,8 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz)
 void mostrarInterfaz(interface_t *interfaz);
 
 
+/*
+    METODO PARA ELEGIR EL GRUPO AL QUE CONECTARNOS
+*/
+
+char elegirGrupo();

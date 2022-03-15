@@ -31,7 +31,7 @@ void mostrarInterfaz(interface_t *interfaz);
     MÉTODO QUE ENVÍA CARACTERES
 */
 
-void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino,char *tipo);
+void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino,char tipo[]);
 
 /*
     MÉTODO QUE RECIBE CARACTERES

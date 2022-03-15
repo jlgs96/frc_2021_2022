@@ -21,6 +21,8 @@ int pedirInterfaz()
     return interfaz;
 }
 
+
+
 void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz)
 {
     int index = 0;
@@ -31,9 +33,9 @@ void seleccionInterfaz(pcap_if_t *interfaces_disponibles, interface_t *interfaz)
         {
             printf("Interfaz elegida: ");
             printf(interfaces_disponibles->name);
+            printf("\n");
             setDeviceName(interfaz, interfaces_disponibles->name);
             GetMACAdapter(interfaz);
-            printf("\nLa interfaz es...\n");
             mostrarInterfaz(interfaz);
 
             break;
@@ -54,7 +56,7 @@ char elegirGrupo(){
     char grupo;
     int nGrupo = 0;
     while( 0 >= nGrupo || nGrupo > 10){
-        printf("Introduzca el número de grupo: ");
+        printf("Introduzca el número de grupo: \n");
         cin >> nGrupo;
     }
     grupo = codGrupo + nGrupo;
@@ -63,9 +65,11 @@ char elegirGrupo(){
 
 int seleccionarRol(){
     int rol = 0;
-    while (rol < 1 || rol > 2)
+    while (rol != 1 && rol != 2)
     {
-        printf("Selecciona el modo de la estación: ");
+        printf("\nSelecciona el modo de la estación: ");
+        printf("\n[1] Modo Maestra");
+        printf("\n[2] Modo Esclava\n");
         cin >> rol;
     }
     return rol;

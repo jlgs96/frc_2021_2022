@@ -12,10 +12,14 @@
 #include <iostream>
 #include "linkLayer.h"
 #include "interfaz.h"
-#include "envio.h"
-#include "recepcion.h"
+//CAMBIAR ESTOS POR INCLUDE "FUNCIONESESPECIALES.H"
+#include "funcionesesp.h"
 
-using namespace std; 
+using namespace std;
+
+
+
+
 
 
 int main(){
@@ -36,20 +40,24 @@ int main(){
     //BUCLE RECORRE Y ELIGE LA INTERFAZ DESEADA
     seleccionInterfaz(avail_ifaces, &iface);
 
-    //ABRIR PUERTO
 
+
+
+    elegirGrupo();
+    seleccionarRol();
+
+    //ABRIR PUERTO
     int Puerto = OpenAdapter(&iface);
     if(Puerto==1)
     {
         printf("Error en el puerto, se debe ejecutar como superusuario\n");
         return 0;
     }
+    
 
     //BUCLE PRINCIPAL:
-    
-    while (character != 27)
-    {
-        //SI SE HA PULSADO TECLA: ENVIAMOS EL CARACTER
+    /**
+     * //SI SE HA PULSADO TECLA: ENVIAMOS EL CARACTER
         if(kbhit()==1)
         {
             character = getch();
@@ -61,7 +69,9 @@ int main(){
            if(character != 0)
                 printf("\n Recibido: %c",character);
         }
-    }
+     * */
+    f1EnvioCaracteres(character, &iface, mac_dst, type);
+    
     //CERRAR PUERTO
     CloseAdapter(&iface);
     

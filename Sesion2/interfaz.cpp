@@ -56,8 +56,7 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
     unsigned char *trama = new unsigned char;
     //AlmacenarDatos;
     *caracter = datos;
-    *protocolo = *tipo;
-   // mostrarInterfaz(interfaz);
+    *protocolo = static_cast<unsigned char>(*tipo);
     //ConstruirTrama;
     trama = BuildFrame(interfaz->MACaddr, mac_destino, protocolo, caracter); //devuelve un char, guardar
     //EnviarTrama;
@@ -75,7 +74,6 @@ char RecibirCaracter (interface_t *interfaz){
     apacket_t trama = ReceiveFrame(interfaz);
     caracter = trama.packet;
     //Si (hay algo en el campo datos)
-    
     if(caracter == NULL)
     {
         //printf("Error, No recibe carácter");

@@ -11,4 +11,10 @@ using namespace std;
  * @param mac_destino 
  * @param tipo 
  */
-void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino,char *tipo);
+void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino,char tipo[]);
+
+/**
+ * @brief Envía un mensaje en broadcast
+ * 
+ */
+void EnviarBroadCast(interface_t *interfaz,char tipo[]);

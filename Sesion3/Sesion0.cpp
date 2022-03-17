@@ -18,10 +18,6 @@
 using namespace std;
 
 
-
-
-
-
 int main(){
     interface_t iface;
     pcap_if_t *avail_ifaces=NULL;
@@ -43,8 +39,7 @@ int main(){
 
 
 
-    elegirGrupo();
-    seleccionarRol();
+    type[0] = elegirGrupo();
 
     //ABRIR PUERTO
     int Puerto = OpenAdapter(&iface);
@@ -52,9 +47,15 @@ int main(){
     {
         printf("Error en el puerto, se debe ejecutar como superusuario\n");
         return 0;
+    } else {
+        printf("Puerto   abierto correctamente\n");
     }
-    
 
+
+    int rol = seleccionarRol();
+
+    //ESTABLECIMIENTO DE LA CONEXIÓN ENTRE EL MAESTRO Y EL ESCLAVO
+    unsigned char *destino = establecerConexionME(&iface,type,rol);
     //BUCLE PRINCIPAL:
     /**
      * //SI SE HA PULSADO TECLA: ENVIAMOS EL CARACTER
@@ -70,7 +71,8 @@ int main(){
                 printf("\n Recibido: %c",character);
         }
      * */
-    f1EnvioCaracteres(character, &iface, mac_dst, type);
+    type[1]=0x00;
+    f1EnvioCaracteres(character, &iface, destino, type);
     
     //CERRAR PUERTO
     CloseAdapter(&iface);

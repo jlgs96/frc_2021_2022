@@ -51,28 +51,16 @@ int main(){
         printf("Puerto   abierto correctamente\n");
     }
 
-
+    //SELECCION DE PUERTO.
     int rol = seleccionarRol();
+    
 
     //ESTABLECIMIENTO DE LA CONEXIÓN ENTRE EL MAESTRO Y EL ESCLAVO
     unsigned char *destino = establecerConexionME(&iface,type,rol);
-    //BUCLE PRINCIPAL:
-    /**
-     * //SI SE HA PULSADO TECLA: ENVIAMOS EL CARACTER
-        if(kbhit()==1)
-        {
-            character = getch();
-            EnviarCaracter(&iface,character,mac_dst,type); 
-        }else
-        //SI NO, RECIBIMOS EL CARÁCTER
-        {
-            character = RecibirCaracter(&iface);
-           if(character != 0)
-                printf("\n Recibido: %c",character);
-        }
-     * */
     type[1]=0x00;
-    f1EnvioCaracteres(character, &iface, destino, type);
+
+    seleccionModo(rol);
+   // f1EnvioCaracteres(character, &iface, destino, type);
     
     //CERRAR PUERTO
     CloseAdapter(&iface);

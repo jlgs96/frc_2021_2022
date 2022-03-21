@@ -70,7 +70,43 @@ int seleccionarRol(){
         printf("\nSelecciona el modo de la estación: ");
         printf("\n[1] Modo Maestra");
         printf("\n[2] Modo Esclava\n");
-        cin >> rol;
+        cin >> rol;            
+    }
+    if(rol == 1)
+    {
+        printf("Esperando a que se una la estacion esclava\n");
+    }else{
+        if(rol == 2)
+        {
+        printf("Esperando a que se una la estacion maestra\n");
+        }
     }
     return rol;
+}
+
+void seleccionModo(int rol)
+{
+     printf("\n Selección de modo:");
+    
+    //PARTE MAESTRO:
+    if(rol == 1)
+    {
+        printf("\n[F1]- Envío de caracteres interactivo");
+        printf("\n[F2] - Envío de un fichero");
+        printf("\n[ESC] - Salir\n");
+
+
+    }else
+    {
+    //PARTE ESCLAVO:
+        if(rol == 2)
+        {
+            printf("\n[F1] - Envío de caracteres interactivo");
+            printf("\n[ESC] - Salir\n");
+        }
+    }
+
+
+
+
 }

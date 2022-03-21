@@ -18,52 +18,97 @@ void f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_ds
     }
    
 }
-
-unsigned char *ObtenerDirOrigen(const unsigned char *trama){
-    unsigned char Arrdest[6];
-    for (int i = 0; i < 6; i++)
-    {
-        Arrdest[i] = trama[6+i];
-    }
-
-    unsigned char *dest = Arrdest;
-    return dest;
-}
-
-unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol){
+unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol)
+{
     apacket_t frame;
     const unsigned char* trama;
-    unsigned char *trama2 = new unsigned char;
-    unsigned char *destino;
-    if(rol == 1){
+    unsigned char *trama2;
+    unsigned char destino[6];
+    //VARIABLE DE FIN DE BUCLE
+    bool descubrimiento = false;
+    if(rol == 1)
+    {
         EnviarBroadCast(interfaz,tipo);
-        while(1){
+        while(!descubrimiento)
+        {
+            //RECEPCION DE LA TRAMA
             frame = ReceiveFrame(interfaz);
+            //RECEPCIÓN DEL CAMPO DATOS DE LA TRAMA 
             trama = frame.packet;
-            if(trama != 0){
-                if(trama[12] == tipo[0] && trama[13] == 0x02){
-                    destino = ObtenerDirOrigen(trama);
-                    break;
+
+            if(trama != NULL)
+            {
+                for (int i =0; i < 6; i++)
+                {
+                    destino[i] = trama[6 + i];
+                }
+            
+                //destino = ObtenerDirOrigen(trama);
+                if(trama[12] == tipo[0] && trama[13] == 0x02)
+                {
+                    
+                    printf("Estación encontrada. La MAC es: ");
+                    //MOSTRAMOS LA DIRECCIÓN MAC
+                    for (int i = 0; i < 6; i++)
+                        {
+                            if(i == 5)
+                            {
+                                cout << hex << (int)destino[i];    
+                            }else
+                            {
+                                cout << hex << (int)destino[i]<<" : ";
+                            }
+                            
+                        }
+                    descubrimiento = true;
                 }
             }
         }  
-    }else{
-        while(1){
-            frame = ReceiveFrame(interfaz);
-            trama = frame.packet;
-            if(trama != 0){
-                if(trama[12] == tipo[0] && trama[13] == 0x01){
-                    destino = ObtenerDirOrigen(trama);
-                    tipo[1] = 0x02;
-                    unsigned char *protocolo = reinterpret_cast<unsigned char*>(tipo);
-                    trama2 = BuildHeader(interfaz->MACaddr,destino,protocolo);
-                    SendFrame(interfaz,trama2,sizeof(char));
-                    break;
+    }else
+    {
+       if(rol == 2)
+       {
+            while(!descubrimiento)
+            {
+                //RECEPCION DE LA TRAMA
+                frame = ReceiveFrame(interfaz);
+                //RECEPCIÓN DEL CAMPO DATOS DE LA TRAMA 
+                trama = frame.packet;
+
+                if(trama != NULL)
+                {
+                      for (int i =0; i < 6; i++)
+                    {
+                        destino[i] = trama[6 + i];
+                    }
+                    if(trama[12] == tipo[0] && trama[13] == 0x01)
+                    {
+                        tipo[1] = 0x02;
+                        unsigned char *protocolo = reinterpret_cast<unsigned char*>(tipo);
+                        trama2 = BuildHeader(interfaz->MACaddr,destino,protocolo);
+                        SendFrame(interfaz,trama2,0);
+                        printf("Estación encontrada. La MAC es: ");
+                          //MOSTRAMOS LA DIRECCIÓN MAC
+                        for (int i = 0; i < 6; i++)
+                        {
+                            if(i == 5)
+                            {
+                                cout << hex << (int)destino[i];    
+                            }else
+                            {
+                                cout << hex << (int)destino[i]<<" : ";
+                            }
+                            
+                        }
+                        descubrimiento = true;
+                        
+                    }
                 }
             }
-        }
+       } 
+        
     }
-    delete trama2;
+    //delete trama2;
     return destino;
 }
 

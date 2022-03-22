@@ -17,13 +17,11 @@
 
 using namespace std; 
 
-
 int main(){
     interface_t iface;
     pcap_if_t *avail_ifaces=NULL;
     avail_ifaces=GetAvailAdapters(); 
 
-   
     unsigned char mac_dst[6]={0x00, 0x01, 0x02, 0x03,0x04, 0x05};
     char type[2]={0x30,0x00};
     
@@ -45,8 +43,10 @@ int main(){
         return 0;
     }
 
-    //BUCLE PRINCIPAL:
+    //ELEGIR GRUPO
     
+
+    //BUCLE PRINCIPAL:
     while (character != 27)
     {
         //SI SE HA PULSADO TECLA: ENVIAMOS EL CARACTER
@@ -65,5 +65,5 @@ int main(){
     //CERRAR PUERTO
     CloseAdapter(&iface);
     
-    return 0;
+    return 0;   
 }

@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_dst,char type[]);
+bool f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_dst,char type[]);
 
 /**
  * @brief Obtenemos la dirección de Origen de la trama recibida

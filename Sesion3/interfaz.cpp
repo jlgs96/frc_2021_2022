@@ -84,17 +84,24 @@ int seleccionarRol(){
     return rol;
 }
 
-void seleccionModo(int rol)
+char seleccionModo(int rol)
 {
-     printf("\n Selección de modo:");
-    
+    char modo;
+    printf("\n Selección de modo:");
     //PARTE MAESTRO:
     if(rol == 1)
     {
         printf("\n[F1]- Envío de caracteres interactivo");
         printf("\n[F2] - Envío de un fichero");
         printf("\n[ESC] - Salir\n");
-
+        if(kbhit() == 1){
+            modo = getch();
+            if(modo != 27){
+                if(modo == 'O'){
+                    modo = getch();
+                }
+            }
+        }
 
     }else
     {
@@ -103,10 +110,15 @@ void seleccionModo(int rol)
         {
             printf("\n[F1] - Envío de caracteres interactivo");
             printf("\n[ESC] - Salir\n");
+            if(kbhit() ==1){
+                modo = getch();
+                if(modo != 27){
+                    if(modo == 'O'){
+                        modo = getch();
+                    }
+                }
+            }
         }
     }
-
-
-
-
+    return modo;
 }

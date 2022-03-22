@@ -58,10 +58,28 @@ int main(){
     //ESTABLECIMIENTO DE LA CONEXIÓN ENTRE EL MAESTRO Y EL ESCLAVO
     unsigned char *destino = establecerConexionME(&iface,type,rol);
     type[1]=0x00;
-
-    seleccionModo(rol);
-   // f1EnvioCaracteres(character, &iface, destino, type);
+    char modo = 'ª';
     
+    bool salir;
+    //BUCLE DE EJUCIÓN
+    while (modo != 27)
+    {
+        salir = false;
+        modo = seleccionModo(rol);
+        if(modo == 'P'){
+            while (!salir)
+            {
+                salir = f1EnvioCaracteres(character, &iface, destino, type);
+            }
+        }
+        if (modo == 'Q'){
+            printf("Estamos trabajando en ello\n");
+        }
+    }
+    
+
+
+
     //CERRAR PUERTO
     CloseAdapter(&iface);
     

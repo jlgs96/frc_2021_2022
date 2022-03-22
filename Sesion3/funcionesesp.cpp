@@ -1,5 +1,5 @@
 #include "funcionesesp.h"
-void f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_dst,char type[])
+bool f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_dst,char type[])
 {
     while (character != 27)
     {
@@ -16,6 +16,7 @@ void f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_ds
                 printf("\n Recibido: %c",character);
         }     
     }
+    return true;
    
 }
 unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol)
@@ -24,6 +25,7 @@ unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol
     const unsigned char* trama;
     unsigned char *trama2;
     unsigned char destino[6];
+    unsigned char *pDestino;
     //VARIABLE DE FIN DE BUCLE
     bool descubrimiento = false;
     if(rol == 1)
@@ -77,7 +79,7 @@ unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol
 
                 if(trama != NULL)
                 {
-                      for (int i =0; i < 6; i++)
+                    for (int i =0; i < 6; i++)
                     {
                         destino[i] = trama[6 + i];
                     }
@@ -88,7 +90,7 @@ unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol
                         trama2 = BuildHeader(interfaz->MACaddr,destino,protocolo);
                         SendFrame(interfaz,trama2,0);
                         printf("Estación encontrada. La MAC es: ");
-                          //MOSTRAMOS LA DIRECCIÓN MAC
+                        //MOSTRAMOS LA DIRECCIÓN MAC
                         for (int i = 0; i < 6; i++)
                         {
                             if(i == 5)
@@ -108,7 +110,7 @@ unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol
        } 
         
     }
-    //delete trama2;
-    return destino;
+    pDestino = destino;
+    return pDestino;
 }
 

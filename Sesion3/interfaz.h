@@ -52,4 +52,4 @@ int seleccionarRol();
 
 
 //METODO PARA MOSTRAR POR PANTALLA LOS MODOS DE EJECUCIÓN SEGÚN SEA MAESTRO O ESCLAVO
-void seleccionModo(int rol);
+char seleccionModo(int rol);

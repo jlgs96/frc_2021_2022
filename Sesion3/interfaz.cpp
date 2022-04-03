@@ -1,5 +1,5 @@
 #include "interfaz.h"
-
+#include "funcionesesp.h"
 void mostrarInterfacesDisponibles(pcap_if_t *interfaces_disponibles)
 {
     int index = 0;
@@ -84,41 +84,70 @@ int seleccionarRol(){
     return rol;
 }
 
-char seleccionModo(int rol)
+void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *destino, char type[2])
 {
-    char modo;
-    printf("\n Selección de modo:");
-    //PARTE MAESTRO:
-    if(rol == 1)
+    bool salir = false;
+    char modo = 'ª';
+    char aux;
+    aux = getch();
+    while(!salir)
     {
-        printf("\n[F1]- Envío de caracteres interactivo");
-        printf("\n[F2] - Envío de un fichero");
-        printf("\n[ESC] - Salir\n");
-        if(kbhit() == 1){
-            modo = getch();
-            if(modo != 27){
-                if(modo == 'O'){
-                    modo = getch();
-                }
-            }
-        }
-
-    }else
-    {
-    //PARTE ESCLAVO:
-        if(rol == 2)
+        printf("\n Selección de modo:");
+        //PARTE MAESTRO:
+        if(rol == 1)
         {
-            printf("\n[F1] - Envío de caracteres interactivo");
+            printf("\n[F1]- Envío de caracteres interactivo");
+            printf("\n[F2] - Envío de un fichero");
             printf("\n[ESC] - Salir\n");
-            if(kbhit() ==1){
-                modo = getch();
-                if(modo != 27){
-                    if(modo == 'O'){
+            modo = getch();
+            if(modo == 27)
+            {
+                if(kbhit()==1){
+                    modo = getch();
+                    if(modo == 'O')
+                    {
+                    //   printf("-----PASA COMPROBACIÓN DE TECLA ESCAPE-----");
                         modo = getch();
+                        ejecutarFunciones(rol,iface,destino,type,modo);
+                        //modo = getch();
                     }
+                }else{
+                    //printf("----------SALIMOS EQUIPO--------------");
+                    salir = true;
+                } 
+            }
+        
+            
+        }else
+        {
+            //PARTE ESCLAVO:
+            if(rol == 2)
+            {
+                printf("\n[F1] - Envío de caracteres interactivo");
+                printf("\n[ESC] - Salir\n");
+                
+                modo = getch();
+                if(modo == 27)
+                {
+                // printf("-----PASA COMPROBACIÓN DE TECLA ESPECIAL-----");
+                    if(kbhit()==1){
+                        modo = getch();
+                        if(modo == 'O')
+                        {
+                        //   printf("-----PASA COMPROBACIÓN DE TECLA ESCAPE-----");
+                            modo = getch();
+                            
+                            ejecutarFunciones(rol,iface,destino,type,modo);
+                            //modo = getch();
+                        }
+                    }else{
+                        //printf("----------SALIMOS EQUIPO--------------");
+                        salir = true;
+                    }  
                 }
+                
             }
         }
     }
-    return modo;
+    
 }

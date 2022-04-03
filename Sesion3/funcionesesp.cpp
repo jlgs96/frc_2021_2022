@@ -1,6 +1,8 @@
 #include "funcionesesp.h"
-bool f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_dst,char type[])
+void f1EnvioCaracteres(interface_t *iface, unsigned char *mac_dst,char type[])
 {
+    char character = 'ª';
+    
     while (character != 27)
     {
          //SI SE HA PULSADO TECLA: ENVIAMOS EL CARACTER
@@ -16,8 +18,6 @@ bool f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_ds
                 printf("\n Recibido: %c",character);
         }     
     }
-    return true;
-   
 }
 unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol)
 {
@@ -114,3 +114,20 @@ unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol
     return pDestino;
 }
 
+void ejecutarFunciones(int rol, interface_t *iface, unsigned char *mac_dst,char type[], char modo){ 
+        switch (modo)
+        {
+            case 'P':
+                printf("F1\n");
+                f1EnvioCaracteres(iface, mac_dst, type);
+                break;
+            case 'Q':
+                printf("F2\n");
+                printf("Estamos trabajando en ello\n");
+                break;
+            default:
+                break;
+        }
+    //salir = true;           
+    
+}

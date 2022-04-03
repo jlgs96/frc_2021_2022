@@ -2,12 +2,12 @@
 #include <iostream>
 #include "envio.h"
 #include "recepcion.h"
+#include "interfaz.h"
 #include "linkLayer.h"
 using namespace std;
 
 
-bool f1EnvioCaracteres(char character, interface_t *iface, unsigned char *mac_dst,char type[]);
-
+void f1EnvioCaracteres(interface_t *iface, unsigned char *mac_dst,char type[], char modo);
 /**
  * @brief Obtenemos la dirección de Origen de la trama recibida
  * 
@@ -25,3 +25,6 @@ unsigned char *ObtenerDirOrigen(const unsigned char *trama);
  * @return unsigned char* 
  */
 unsigned char *establecerConexionME(interface_t *interfaz, char tipo[], int rol);
+
+
+void ejecutarFunciones(int rol, interface_t *iface, unsigned char *mac_dst,char type[], char modo);

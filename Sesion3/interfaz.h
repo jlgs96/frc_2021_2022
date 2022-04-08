@@ -52,4 +52,4 @@ int seleccionarRol();
 
 
 //METODO PARA MOSTRAR POR PANTALLA LOS MODOS DE EJECUCIÓN SEGÚN SEA MAESTRO O ESCLAVO
-void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *destino, char type[2]);
+void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *destino, char type[2],char *datos);

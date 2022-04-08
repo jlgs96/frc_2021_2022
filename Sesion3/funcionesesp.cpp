@@ -14,11 +14,30 @@ void f1EnvioCaracteres(interface_t *iface, unsigned char *mac_dst,char type[])
         //SI NO, RECIBIMOS EL CARÁCTER
         {
             character = RecibirCaracter(iface);
-           if(character != 0)
+            if(character != 0)
                 printf("\n Recibido: %c",character);
         }     
     }
 }
+
+void f2EnvioFichero(interface_t *iface, unsigned char *mac_dst,char type[]){
+    char cadena[255];
+    bool fin = false;
+    ifstream fichero_lec("envio.txt");
+    if(fichero_lec.is_open()){
+        while(!fin){
+            fichero_lec.read(cadena, 254);
+            cadena[fichero_lec.gcount()] = '\0';
+            if(fichero_lec.gcount() == 0){
+                fin = true;
+            }
+            unsigned char *datos = reinterpret_cast<unsigned char*>(cadena);
+            EnviarCadena(iface,datos,mac_dst,type);
+        }
+        fichero_lec.close();
+    }
+}
+
 unsigned char * establecerConexionME(interface_t *interfaz, char tipo[], int rol)
 {
     apacket_t frame;
@@ -123,7 +142,7 @@ void ejecutarFunciones(int rol, interface_t *iface, unsigned char *mac_dst,char 
                 break;
             case 'Q':
                 printf("F2\n");
-                printf("Estamos trabajando en ello\n");
+                f2EnvioFichero(iface,mac_dst,type);
                 break;
             default:
                 break;

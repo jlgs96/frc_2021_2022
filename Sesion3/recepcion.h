@@ -10,3 +10,5 @@ using namespace std;
  * @return char 
  */
 char RecibirCaracter (interface_t *interfaz);
+
+char *RecibirCadena (interface_t *interfaz);

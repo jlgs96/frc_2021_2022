@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include "envio.h"
 #include "recepcion.h"
 #include "interfaz.h"
@@ -8,13 +9,8 @@ using namespace std;
 
 
 void f1EnvioCaracteres(interface_t *iface, unsigned char *mac_dst,char type[], char modo);
-/**
- * @brief Obtenemos la dirección de Origen de la trama recibida
- * 
- * @param trama 
- * @return unsigned char* 
- */
-unsigned char *ObtenerDirOrigen(const unsigned char *trama);
+
+void f2EnvioFichero();
 
 /**
  * @brief Establecemos la conexión entre el Maestro y el Esclavo

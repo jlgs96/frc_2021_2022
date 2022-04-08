@@ -27,6 +27,7 @@ int main(){
     char type[2]={0x30,0x00};
     
     char character = 'ª';
+    char datos[255];
 
     //BUCLE PARA MOSTRAR LAS INTERFACES
     printf("Interfaces disponibles: \n");
@@ -59,12 +60,12 @@ int main(){
     type[1]=0x00;
     
     
-    seleccionModo(rol,character,&iface,destino,type);
+    seleccionModo(rol,character,&iface,destino,type,datos);
 
 
 
     //CERRAR PUERTO
     CloseAdapter(&iface);
-    
+
     return 0;
 }

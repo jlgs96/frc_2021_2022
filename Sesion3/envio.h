@@ -14,6 +14,17 @@ using namespace std;
 void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *mac_destino,char tipo[]);
 
 /**
+ * @brief Envía cadenas de caracteres al receptor 
+ * 
+ * @param interfaz 
+ * @param datos 
+ * @param mac_destino 
+ * @param tipo 
+ */
+void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *mac_destino,char tipo[]);
+
+
+/**
  * @brief Envía un mensaje en broadcast
  * 
  */

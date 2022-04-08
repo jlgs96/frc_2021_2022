@@ -84,7 +84,7 @@ int seleccionarRol(){
     return rol;
 }
 
-void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *destino, char type[2])
+void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *destino, char type[2],char *datos)
 {
     bool salir = false;
     char modo = 'ª';
@@ -127,6 +127,13 @@ void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *de
                 printf("\n[ESC] - Salir\n");
                 
                 modo = getch();
+                if(modo != 27){
+                    datos = RecibirCadena(iface);
+                    cout << datos << endl;
+                    if(datos != 0){
+                        printf("\n Recibido: %hhn",datos);
+                    }
+                }
                 if(modo == 27)
                 {
                 // printf("-----PASA COMPROBACIÓN DE TECLA ESPECIAL-----");

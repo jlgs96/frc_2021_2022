@@ -18,6 +18,23 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
     delete trama;
   }
 
+void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *mac_destino, char tipo[]){
+    //ReservarMemoriaDatos;
+    unsigned char *caracter = new unsigned char;
+    unsigned char *trama = new unsigned char;
+
+    unsigned char *protocolo = reinterpret_cast<unsigned char*>(tipo);
+   // mostrarInterfaz(interfaz);
+    //ConstruirTrama;
+    trama = BuildFrame(interfaz->MACaddr, mac_destino, protocolo, datos); //devuelve un char, guardar
+    //EnviarTrama;
+    cout << datos << endl;
+    SendFrame(interfaz, trama, sizeof(datos)); // envia la trama creada antes
+    //LiberarMemoriaDatos;
+    delete caracter;
+    delete trama;
+  }
+
 void EnviarBroadCast(interface_t *interfaz,char tipo[]){
   unsigned char mac_broadcast[6]={0xFF, 0xFF, 0xFF, 0xFF,0xFF, 0xFF}; //Dirección para broadcast
   //Asignamos el tipo de trama(0x01) al protocolo

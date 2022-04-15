@@ -44,7 +44,7 @@ int main(){
     //ABRIR PUERTO
     int Puerto = OpenAdapter(&iface);
     if(Puerto==1)
-    {
+    {  
         printf("Error en el puerto, se debe ejecutar como superusuario\n");
         return 0;
     } else {

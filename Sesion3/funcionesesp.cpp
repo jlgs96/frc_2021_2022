@@ -30,9 +30,10 @@ void f2EnvioFichero(interface_t *iface, unsigned char *mac_dst,char type[]){
             cadena[fichero_lec.gcount()] = '\0';
             if(fichero_lec.gcount() == 0){
                 fin = true;
+            } else{
+                unsigned char *datos = reinterpret_cast<unsigned char*>(cadena);
+                EnviarCadena(iface,datos,mac_dst,type,fichero_lec.gcount());
             }
-            unsigned char *datos = reinterpret_cast<unsigned char*>(cadena);
-            EnviarCadena(iface,datos,mac_dst,type);
         }
         fichero_lec.close();
     }

@@ -11,4 +11,4 @@ using namespace std;
  */
 char RecibirCaracter (interface_t *interfaz);
 
-char *RecibirCadena (interface_t *interfaz);
+char * RecibirCadena (interface_t *interfaz);

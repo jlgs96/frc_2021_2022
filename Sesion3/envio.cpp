@@ -18,7 +18,7 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
     delete trama;
   }
 
-void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *mac_destino, char tipo[]){
+void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *mac_destino, char tipo[], int longitud){
     //ReservarMemoriaDatos;
     unsigned char *caracter = new unsigned char;
     unsigned char *trama = new unsigned char;
@@ -29,7 +29,7 @@ void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *m
     trama = BuildFrame(interfaz->MACaddr, mac_destino, protocolo, datos); //devuelve un char, guardar
     //EnviarTrama;
     cout << datos << endl;
-    SendFrame(interfaz, trama, sizeof(datos)); // envia la trama creada antes
+    SendFrame(interfaz, trama, longitud); // envia la trama creada antes
     //LiberarMemoriaDatos;
     delete caracter;
     delete trama;

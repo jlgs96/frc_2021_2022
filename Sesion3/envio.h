@@ -21,7 +21,7 @@ void EnviarCaracter (interface_t *interfaz, unsigned char datos, unsigned char *
  * @param mac_destino 
  * @param tipo 
  */
-void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *mac_destino,char tipo[]);
+void EnviarCadena (interface_t *interfaz, unsigned char *datos, unsigned char *mac_destino,char tipo[], int longitud);
 
 
 /**

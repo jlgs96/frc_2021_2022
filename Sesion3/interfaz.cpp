@@ -125,15 +125,12 @@ void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *de
             {
                 printf("\n[F1] - Envío de caracteres interactivo");
                 printf("\n[ESC] - Salir\n");
-                
-                modo = getch();
-                if(modo != 27){
-                    datos = RecibirCadena(iface);
-                    cout << datos << endl;
-                    if(datos != 0){
-                        printf("\n Recibido: %hhn",datos);
-                    }
+                while(kbhit() == 0){
+                    char *letra = RecibirCadena(iface);
+                    if(letra != NULL)
+                        printf( "\nRecibido: %s",letra);                     
                 }
+                modo = getch();
                 if(modo == 27)
                 {
                 // printf("-----PASA COMPROBACIÓN DE TECLA ESPECIAL-----");

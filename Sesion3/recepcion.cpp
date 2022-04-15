@@ -8,7 +8,7 @@ char RecibirCaracter (interface_t *interfaz){
     caracter = trama.packet;
     //Si (hay algo en el campo datos)
     
-    if(caracter == NULL)
+    if(!caracter)
     {
         //printf("Error, No recibe carácter");
         return 0;
@@ -21,26 +21,25 @@ char RecibirCaracter (interface_t *interfaz){
 }
 
 char *RecibirCadena (interface_t *interfaz){
-    const unsigned char* cadena;
-    char *recibido;
+    const unsigned char* datos;
+    char recibido;
+    char cadena[254];
+    char *pCadena;
     //Trama=RecibirTrama;
     apacket_t trama = ReceiveFrame(interfaz);
-    cadena = trama.packet;
-    //Si (hay algo en el campo datos)
+    datos = trama.packet;
     
-    if(cadena == NULL)
+    //Si (hay algo en el campo datos)
+    if(!datos)
     {
-        //printf("Error, No recibe carácter");
+        //printf("Error, No recibe cadena");
         return 0;
     }else
     {
-        for (int i = 0; i < (int)cadena[13]; i++)
-        {
-            *recibido = cadena[14+i];
+        for(int i= 0; i < (trama.header.len - 14); i++){
+            cadena[i] = datos[14+i];
         }
-        cout << recibido << endl;
-        
-        
-        return recibido;
     }
+    pCadena = cadena;
+    return pCadena;
 }

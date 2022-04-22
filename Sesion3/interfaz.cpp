@@ -127,8 +127,8 @@ void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *de
                 printf("\n[ESC] - Salir\n");
                 while(kbhit() == 0){
                     char *letra = RecibirCadena(iface);
-                    if(letra != NULL)
-                        printf( "\nRecibido: %s",letra);                     
+                   // if(letra != NULL)
+                       // printf( "\nRecibido: %c",*letra);                     
                 }
                 modo = getch();
                 if(modo == 27)

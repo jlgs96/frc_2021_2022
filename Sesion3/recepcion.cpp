@@ -24,7 +24,7 @@ char *RecibirCadena (interface_t *interfaz){
     const unsigned char* datos;
     char recibido;
     char cadena[254];
-    char *pCadena;
+    char *pCadena = new char();
     //Trama=RecibirTrama;
     apacket_t trama = ReceiveFrame(interfaz);
     datos = trama.packet;
@@ -38,6 +38,7 @@ char *RecibirCadena (interface_t *interfaz){
     {
         for(int i= 0; i < (trama.header.len - 14); i++){
             cadena[i] = datos[14+i];
+            printf( "%c",cadena[i]);
         }
     }
     pCadena = cadena;

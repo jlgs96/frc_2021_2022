@@ -69,10 +69,33 @@ void f3ParoEspera(int rol)
                     switch (aux)
                     {
                         case '1':
-                            printf("\nSondeo...");
+                            printf("\nSelección...");
+                            /***
+                             * FASE DE ESTABLECIMIENTO 
+                             * Montar trama de control
+                             * Enviar trama de control (Petición)
+                             * Recibir trama de control (Rspuesta)
+                             * Psar a fase de transferencia
+                             */
+                            /***
+                             * FASE DE TRANSFERENCIA 
+                             * Calcular BCE a enviar
+                             * Montar trama de datos
+                             * Enviar trama de datos
+                             * Recibir trama de control (Rspuesta)
+                             *      -> Reenviar trama de datos
+                             * ...
+                             * Pasar a fase de liberación
+                             */
+                            /***
+                             * FASE DE LIBERACIÓN
+                             * Enviar trama de control (Petición)
+                             * Recibir trama de control (Rspuesta)
+                             * Cerrar
+                             */
                             break;
                         case '2':
-                            printf("\nSelección...");
+                            printf("\nSondeo...");
                             break;
                         case '3':
                             printf("\nSaliendo...");

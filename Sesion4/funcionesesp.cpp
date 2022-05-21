@@ -2,7 +2,7 @@
 
 void f1EnvioCaracteres(interface_t *iface, unsigned char *mac_dst,char type[])
 {
-    char character = 'ª';
+    char character = 'A';
     
     while (character != 27)
     {
@@ -40,14 +40,12 @@ void f2EnvioFichero(interface_t *iface, unsigned char *mac_dst,char type[]){
     }
 }
 
-void f3ParoEspera(int rol)
+void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type[])
 {
     bool salirMaestro = false;
     bool salirEsclavo = false;
-    char aux = 'ª';
+    char aux = 'A';
    
-   
-        
     if(rol == 1)
     {
         printf("\nProtocolo paro y espera. Para salir pulse ESC.");
@@ -69,7 +67,18 @@ void f3ParoEspera(int rol)
                     switch (aux)
                     {
                         case '1':
-                            printf("\nSelección...");
+                            printf("\nSelección...\n");
+                            /*
+                            while (!recibirTramaControl(iface,'R', 6,'0'))
+                            {
+                                enviarTramaControl(iface, mac_dst, type,'R', 5,'0');
+                            }
+                            */
+                            enviarTramaControl(iface, mac_dst, type,'R', 5,'0');
+                            while(!recibirTramaControl(iface,'R', 6,'0')){
+                                continue;
+                            }
+                            
                             /***
                              * FASE DE ESTABLECIMIENTO 
                              * Montar trama de control
@@ -114,7 +123,7 @@ void f3ParoEspera(int rol)
         if(rol == 2)
         {
             printf("\nProtocolo paro y espera. Para salir pulse ESC.");
-            printf("\nEstás en modo esclavo");
+            printf("\nEstás en modo esclavo\n");
             while (!salirEsclavo)
             {
                 if(kbhit() == 1)
@@ -123,11 +132,13 @@ void f3ParoEspera(int rol)
                     if(aux == 27)
                     {
                         salirEsclavo = true;
-                    }else
+                    }
+                }else
                     {
-                        printf("\nAquí iría el método");
-                    } 
-                }  
+                        if(recibirTramaControl(iface,'R', 5,'0')){
+                            enviarTramaControl(iface, mac_dst, type,'R', 6,'0');
+                        }
+                    }   
             } 
         }
     }
@@ -244,7 +255,7 @@ void ejecutarFunciones(int rol, interface_t *iface, unsigned char *mac_dst,char 
                 break;
             case 'R':
                 printf("F3\n");
-                f3ParoEspera(rol);
+                f3ParoEspera(rol,iface,mac_dst,type);
                 break;
             default:
                 break;

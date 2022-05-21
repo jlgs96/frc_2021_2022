@@ -87,7 +87,7 @@ int seleccionarRol(){
 void seleccionModo(int rol, char caracter, interface_t *iface, unsigned char *destino, char type[2],char *datos)
 {
     bool salir = false;
-    char modo = 'ª';
+    char modo = 'A';
     char aux;
     aux = getch();
     while(!salir)

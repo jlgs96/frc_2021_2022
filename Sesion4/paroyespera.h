@@ -7,6 +7,6 @@
 #include "linkLayer.h"
 using namespace std;
 
-void enviarTramaControl(interface_t *interfaz, unsigned char *mac_destino, char tipo[]);
+bool enviarTramaControl(interface_t *interfaz, unsigned char *mac_destino, char tipo[],char direccion, char control,char ntrama);
 
-bool recibirTramaControl(interface_t *interfaz, char direccion, char control, char ntrama);
+bool recibirTramaControl(interface_t *interfaz,char direccion, char control, char ntrama);

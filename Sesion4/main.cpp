@@ -13,7 +13,6 @@
 #include "linkLayer.h"
 //CAMBIAR ESTOS POR INCLUDE "FUNCIONESESPECIALES.H"
 #include "funcionesesp.h"
-
 using namespace std;
 
 
@@ -26,7 +25,7 @@ int main(){
     unsigned char mac_dst[6]={0x00, 0x01, 0x02, 0x03,0x04, 0x05};
     char type[2]={0x30,0x00};
     
-    char character = 'ª';
+    char character = 'A';
     char datos[255];
 
     //BUCLE PARA MOSTRAR LAS INTERFACES

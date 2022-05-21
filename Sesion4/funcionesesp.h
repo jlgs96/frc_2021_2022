@@ -5,14 +5,15 @@
 #include "recepcion.h"
 #include "interfaz.h"
 #include "linkLayer.h"
+#include "paroyespera.h"
 using namespace std;
 
 
 void f1EnvioCaracteres(interface_t *iface, unsigned char *mac_dst,char type[], char modo);
 
-void f2EnvioFichero();
+void f2EnvioFichero(interface_t *iface, unsigned char *mac_dst,char type[]);
 
-void f3ParoEspera(int rol);
+void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type[]);
 /**
  * @brief Establecemos la conexión entre el Maestro y el Esclavo
  * 

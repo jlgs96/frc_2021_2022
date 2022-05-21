@@ -66,19 +66,8 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                 {         
                     switch (aux)
                     {
-                        case '1':
+                        case '1': 
                             printf("\nSelección...\n");
-                            /*
-                            while (!recibirTramaControl(iface,'R', 6,'0'))
-                            {
-                                enviarTramaControl(iface, mac_dst, type,'R', 5,'0');
-                            }
-                            */
-                            enviarTramaControl(iface, mac_dst, type,'R', 5,'0');
-                            while(!recibirTramaControl(iface,'R', 6,'0')){
-                                continue;
-                            }
-                            
                             /***
                              * FASE DE ESTABLECIMIENTO 
                              * Montar trama de control
@@ -86,6 +75,16 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                              * Recibir trama de control (Rspuesta)
                              * Psar a fase de transferencia
                              */
+                            enviarTramaControl(iface, mac_dst, type,'R', 5,'0');
+                            while(true){
+                                if(!recibirTramaControl(iface,'R', 6,'0')){
+                                    continue;
+                                }
+                                else {
+                                    printf("Pasamos a la fase de Transferencia\n");
+                                    break;
+                                }
+                            }
                             /***
                              * FASE DE TRANSFERENCIA 
                              * Calcular BCE a enviar

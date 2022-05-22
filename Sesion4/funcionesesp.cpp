@@ -67,6 +67,7 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                     switch (aux)
                     {
                         case '1': 
+                        {
                             printf("\nSelección...\n");
                             /***
                              * FASE DE ESTABLECIMIENTO 
@@ -85,6 +86,37 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                                     break;
                                 }
                             }
+                            char cadena[255];
+                            bool fin = false;
+                            int longitud, bce;
+                            ifstream fichero_lec("EProtoc.txt");
+                            printf("crea flujo, ");
+                            if(fichero_lec.is_open()){
+                                printf("abre fichero, ");
+                                while(!fin){
+                                    printf("lee fichero, ");
+                                    fichero_lec.read(cadena, 254);
+                                    longitud = fichero_lec.gcount();
+                                    cadena[longitud] = '\0';
+                                    if(longitud == 0){
+                                        fin = true;
+                                    } else{
+                                        bce = calcularBCE(cadena,longitud);
+                                        printf("calcula bce");
+                                        char control[4] = {'R',2,'0',(char)longitud};
+                                        char datos[4+longitud+1];
+                                        char cbce[1] = {(char)bce};
+                                        strcpy(datos,control);
+                                        strcat(datos, cadena);
+                                        strcat(datos,cbce);
+                                        printf("concatena todos los datos, ");
+                                        unsigned char *datosT = reinterpret_cast<unsigned char*>(datos);
+                                        printf("convierte a unsigned char, ");
+                                        enviarTramaDatos(iface, mac_dst, type, datosT,strlen(datos),'R',2,'0',bce);
+                                    }
+                                }
+                                fichero_lec.close();
+                            }
                             /***
                              * FASE DE TRANSFERENCIA 
                              * Calcular BCE a enviar
@@ -95,12 +127,14 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                              * ...
                              * Pasar a fase de liberación
                              */
+
                             /***
                              * FASE DE LIBERACIÓN
                              * Enviar trama de control (Petición)
                              * Recibir trama de control (Rspuesta)
                              * Cerrar
                              */
+                        }
                             break;
                         case '2':
                             printf("\nSondeo...");

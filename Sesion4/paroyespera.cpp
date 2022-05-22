@@ -70,3 +70,28 @@ bool recibirTramaControl(interface_t *interfaz,char direccion, char control, cha
 
     return correcta;
 }
+
+int calcularBCE(char datos[], int longitud){
+    int bce = 0;
+    for (int i = 0; i < longitud-1; i++)
+    {
+        bce = datos[i]^datos[i+1];
+    }
+    return bce;
+}
+
+bool enviarTramaDatos(interface_t *interfaz, unsigned char *mac_destino, char tipo[], unsigned char *datos,int longitud, char direccion, char control, char ntrama, int bce){
+    unsigned char *protocolo = reinterpret_cast<unsigned char*>(tipo);
+    unsigned char *trama = new unsigned char;
+    trama = BuildFrame(interfaz->MACaddr, mac_destino, protocolo, datos);
+    SendFrame(interfaz,trama,longitud);
+    delete trama;
+    printf("E ");
+    printf("%c ",direccion);
+    if(control == 2)
+        printf("STX");
+    printf("%c",ntrama);
+    printf("%d",bce);
+
+    return true;
+}

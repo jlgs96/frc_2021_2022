@@ -90,11 +90,8 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                             bool fin = false;
                             int longitud, bce;
                             ifstream fichero_lec("EProtoc.txt");
-                            printf("crea flujo, ");
                             if(fichero_lec.is_open()){
-                                printf("abre fichero, ");
                                 while(!fin){
-                                    printf("lee fichero, ");
                                     fichero_lec.read(cadena, 254);
                                     longitud = fichero_lec.gcount();
                                     cadena[longitud] = '\0';
@@ -102,16 +99,19 @@ void f3ParoEspera(int rol, interface_t *iface, unsigned char *mac_dst, char type
                                         fin = true;
                                     } else{
                                         bce = calcularBCE(cadena,longitud);
-                                        printf("calcula bce");
                                         char control[4] = {'R',2,'0',(char)longitud};
                                         char datos[4+longitud+1];
                                         char cbce[1] = {(char)bce};
-                                        strcpy(datos,control);
-                                        strcat(datos, cadena);
-                                        strcat(datos,cbce);
-                                        printf("concatena todos los datos, ");
+
+                                        for(int i = 0; i<4;i++){
+                                            datos[i]=control[i];
+                                        }
+                                        for (int i = 0; i < longitud; i++)
+                                        {
+                                            datos[i+4] = cadena[i];
+                                        }
+                                        datos[4+longitud-1] = cbce[0];
                                         unsigned char *datosT = reinterpret_cast<unsigned char*>(datos);
-                                        printf("convierte a unsigned char, ");
                                         enviarTramaDatos(iface, mac_dst, type, datosT,strlen(datos),'R',2,'0',bce);
                                     }
                                 }

@@ -91,7 +91,7 @@ bool enviarTramaDatos(interface_t *interfaz, unsigned char *mac_destino, char ti
     if(control == 2)
         printf("STX");
     printf("%c",ntrama);
-    printf("%d",bce);
+    printf("%d\n",bce);
 
     return true;
 }
